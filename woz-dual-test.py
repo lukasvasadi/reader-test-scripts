@@ -83,8 +83,8 @@ def main():
 
     # Print data
     while True:
-        print(reader0.readline()[0:-2].decode('utf-8'))
-        print(reader1.readline()[0:-2].decode('utf-8'))
+        print(readers[0].readline()[0:-2].decode('utf-8'))
+        print(readers[1].readline()[0:-2].decode('utf-8'))
         time.sleep(1)
 
 
