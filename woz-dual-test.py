@@ -58,7 +58,7 @@ def main():
 
         readers = (reader0, reader1)
 
-        print(readers)
+        # print(readers)
 
         # Reset microcontroller
         for reader in readers:
