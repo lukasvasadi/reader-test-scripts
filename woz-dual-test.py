@@ -7,28 +7,10 @@ import platform
 from serial.tools import list_ports
 
 
-# Bundle setup commands into readable format
-def package_setup_commands():
-    setting = input("Setting ('c' or 's'): ")
-    median = input("Median: ")
-
-    if setting == 's':
-        amplitude = input("Amplitude: ")
-        frequency = input("Frequency: ")
-    else:
-        amplitude = '0'
-        frequency = '0'
-
-    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + '>'
-    print("Setup:", setup_commands)
-    return setup_commands
-
-
-# Establish serial connection
-def main():
+def connect():
     reader0 = serial.Serial()
     reader1 = serial.Serial()
-    # Automatically connect to reader
+    # Automatically connect to readers
     try:
         ports = []  # Initialize port list
         ports_available = list(list_ports.comports())
@@ -57,8 +39,7 @@ def main():
         reader1.open()
 
         readers = (reader0, reader1)
-
-        # print(readers)
+        print(readers)
 
         # Reset microcontroller
         for reader in readers:
@@ -68,18 +49,40 @@ def main():
             reader.reset_input_buffer()
             reader.reset_output_buffer()
             reader.setDTR(True)
+        
+        return readers
 
     except AttributeError:
         err = "Error: Problem with serial connection"
         print(err)
 
-    # Package and send setup commands
-    setup_commands = package_setup_commands()
+
+def setup(readers):
+    setting = input("Setting ('c' or 's'): ")
+    median = input("Median: ")
+
+    if setting == 's':
+        amplitude = input("Amplitude: ")
+        frequency = input("Frequency: ")
+    else:
+        amplitude = '0'
+        frequency = '0'
+
+    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + '>'
+    print("Setup:", setup_commands)
 
     for reader in readers:
         reader.write(setup_commands.encode())
 
-    time.sleep(1)
+
+# Establish serial connection
+def main():
+    # Connect readers
+    readers = connect()
+    # Package and send setup commands
+    setup(readers)
+
+    time.sleep(2)
 
     # Print data
     while True:
