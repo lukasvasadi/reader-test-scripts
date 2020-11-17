@@ -83,9 +83,10 @@ def main():
 
     # Print data
     while True:
-        print(readers[0].readline()[0:-2].decode('utf-8'))
-        print(readers[1].readline()[0:-2].decode('utf-8'))
-        time.sleep(1)
+        data0 = readers[0].readline()[0:-2].decode('utf-8')
+        data1 = readers[1].readline()[0:-2].decode('utf-8')
+        print(data0, data1)
+        # time.sleep(1)
 
 
 if __name__ == '__main__':
