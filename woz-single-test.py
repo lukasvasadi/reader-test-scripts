@@ -11,6 +11,7 @@ from serial.tools import list_ports
 def package_setup_commands():
     setting = input("Setting ('c' or 's'): ")
     median = input("Median: ")
+    debug = input("Debug ('0' or '1'): ")
     
     if setting == 's':
         amplitude = input("Amplitude: ")
@@ -19,7 +20,7 @@ def package_setup_commands():
         amplitude = '0'
         frequency = '0'
 
-    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + '>'
+    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + ';' + debug + '>'
     print("Setup:", setup_commands)
     return setup_commands
 
@@ -68,8 +69,9 @@ def main():
 
     # Print data
     while True:
-        print(reader.readline()[0:-2].decode('utf-8'))
-        time.sleep(1)
+        data = reader.readline()[0:-2].decode('utf-8')
+        print(data)
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':

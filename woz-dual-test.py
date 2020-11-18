@@ -60,6 +60,7 @@ def connect():
 def setup(readers):
     setting = input("Setting ('c' or 's'): ")
     median = input("Median: ")
+    debug = input("Debug ('0' or '1'): ")
 
     if setting == 's':
         amplitude = input("Amplitude: ")
@@ -68,7 +69,7 @@ def setup(readers):
         amplitude = '0'
         frequency = '0'
 
-    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + '>'
+    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + ';' + debug + '>'
     print("Setup:", setup_commands)
 
     for reader in readers:
@@ -89,7 +90,7 @@ def main():
         data0 = readers[0].readline()[0:-2].decode('utf-8')
         data1 = readers[1].readline()[0:-2].decode('utf-8')
         print(data0, data1)
-        # time.sleep(1)
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':
