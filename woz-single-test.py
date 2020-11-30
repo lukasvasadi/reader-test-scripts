@@ -19,6 +19,8 @@ def package_setup_commands():
     else:
         amplitude = '0'
         frequency = '0'
+    
+    debug = input("Debug ('0' or '1'): ")
 
     setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + ';' + debug + '>'
     print("Setup:", setup_commands)
@@ -69,8 +71,9 @@ def main():
 
     # Print data
     while True:
-        print(reader.readline()[0:-2].decode('utf-8'))
-        time.sleep(1)
+        data = reader.readline()[0:-2].decode('utf-8')
+        print(data)
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':

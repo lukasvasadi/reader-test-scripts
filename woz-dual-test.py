@@ -67,8 +67,10 @@ def setup(readers):
     else:
         amplitude = '0'
         frequency = '0'
+    
+    debug = input("Debug ('0' or '1'): ")
 
-    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + '>'
+    setup_commands = '<' + setting + ';' + median + ';' + amplitude + ';' + frequency + ';' + debug + '>'
     print("Setup:", setup_commands)
 
     for reader in readers:
@@ -86,9 +88,10 @@ def main():
 
     # Print data
     while True:
-        print(readers[0].readline()[0:-2].decode('utf-8'))
-        print(readers[1].readline()[0:-2].decode('utf-8'))
-        time.sleep(1)
+        data0 = readers[0].readline()[0:-2].decode('utf-8')
+        data1 = readers[1].readline()[0:-2].decode('utf-8')
+        print(data0, data1)
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':
